@@ -1,31 +1,30 @@
-package com.company.hiro.sandbox.Class;
+package com.company.hiro.sandbox;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.MenuItem;
-import android.support.v4.app.Fragment;
-import br.com.livroandroid.carros.fragments.CarrosFragment;
-import br.com.livroandroid.carros.fragments.SiteLivroFragment;
+import android.widget.Toast;
 
-import br.com.livroandroid.carros.R;
+import livroandroid.lib.activity.BaseActivity;
 import livroandroid.lib.utils.NavDrawerUtil;
 
-public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
-    protected DrawerLayout drawerLayout;
+public class MainActivity extends BaseActivity {
 
-    // Configura a Toolbar
-    protected void setUpToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
+    DrawerLayout drawerLayout;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setupNavDrawer();
     }
-
-    // Configura o Nav Drawer
-    protected void setupNavDrawer() {
+    void setupNavDrawer() {
         // Drawer Layout
         final ActionBar actionBar = getSupportActionBar();
         // Ícone do menu do nav drawer
@@ -52,52 +51,52 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
                     });
         }
     }
-
     // Trata o evento do menu lateral
     private void onNavDrawerItemSelected(MenuItem menuItem) {
+        Toast.makeText(this, "Teste", Toast.LENGTH_LONG).show();
         switch (menuItem.getItemId()) {
             case R.id.nav_item_carros_todos:
-                replaceFragment(CarrosFragment.newInstance("todos"));
+                StaticClass.toast(this, "Todos", 1);
                 break;
             case R.id.nav_item_carros_classicos:
-                replaceFragment(CarrosFragment.newInstance("classicos"));
+                StaticClass.toast(this, "classicos", 1);
                 break;
             case R.id.nav_item_carros_esportivos:
-                replaceFragment(CarrosFragment.newInstance("esportivos"));
+                StaticClass.toast(this, "esportivos", 1);
                 break;
             case R.id.nav_item_carros_luxo:
-                replaceFragment(CarrosFragment.newInstance("luxo"));
+                StaticClass.toast(this, "luxo", 1);
                 break;
             case R.id.nav_item_site_livro:
-                replaceFragment(new SiteLivroFragment());
+                StaticClass.toast(this, "livro", 1);
                 break;
             case R.id.nav_item_settings:
-                toast("Clicou em configurações");
+                StaticClass.toast(this, "setings", 1);
                 break;
         }
     }
-    // Adiciona o fragment no centro da tela
-    protected void replaceFragment(Fragment frag) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,frag, "TAG").commit();
-    }
 
 
+    private boolean openedDrawer = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Trata o clique no botão que abre o menu.
                 if (drawerLayout != null) {
-                    openDrawer();
+                    if (openedDrawer)
+                        closeDrawer();
+                    else
+                        openDrawer();
                     return true;
                 }
         }
         return super.onOptionsItemSelected(item);
     }
-
     // Abre o menu lateral
     protected void openDrawer() {
         if (drawerLayout != null) {
+            openedDrawer = true;
             drawerLayout.openDrawer(GravityCompat.START);
         }
     }
@@ -105,6 +104,7 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
     // Fecha o menu lateral
     protected void closeDrawer() {
         if (drawerLayout != null) {
+            openedDrawer = false;
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
