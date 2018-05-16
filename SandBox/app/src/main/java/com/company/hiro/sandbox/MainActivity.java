@@ -56,22 +56,22 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(this, "Teste", Toast.LENGTH_LONG).show();
         switch (menuItem.getItemId()) {
             case R.id.nav_item_carros_todos:
-                StaticClass.toast(this, "Todos", 1);
+                StaticClass.toast(this, "Todos", true);
                 break;
             case R.id.nav_item_carros_classicos:
-                StaticClass.toast(this, "classicos", 1);
+                StaticClass.toast(this, "classicos", true);
                 break;
             case R.id.nav_item_carros_esportivos:
-                StaticClass.toast(this, "esportivos", 1);
+                StaticClass.toast(this, "esportivos", true);
                 break;
             case R.id.nav_item_carros_luxo:
-                StaticClass.toast(this, "luxo", 1);
+                StaticClass.toast(this, "luxo", true);
                 break;
             case R.id.nav_item_site_livro:
-                StaticClass.toast(this, "livro", 1);
+                StaticClass.toast(this, "livro", true);
                 break;
             case R.id.nav_item_settings:
-                StaticClass.toast(this, "setings", 1);
+                StaticClass.toast(this, "setings", true);
                 break;
         }
     }
