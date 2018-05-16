@@ -15,8 +15,8 @@ public class StaticClass {
         fragmentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.container,frag, "TAG").commit();
     }
 
-    public static void toast(Context context, String frase, int tempo){
-        Toast.makeText(context,frase, tempo).show();
+    public static void toast(Context context, String frase, boolean tempoLong){
+        Toast.makeText(context,frase, tempoLong).show();
     }
 
 }
