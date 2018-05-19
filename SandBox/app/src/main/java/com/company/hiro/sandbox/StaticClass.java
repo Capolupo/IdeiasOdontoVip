@@ -16,7 +16,7 @@ public class StaticClass {
     }
 
     public static void toast(Context context, String frase, boolean tempoLong){
-        Toast.makeText(context,frase, tempoLong).show();
+        //Toast.makeText(context,frase, tempoLong).show();
     }
 
 }
