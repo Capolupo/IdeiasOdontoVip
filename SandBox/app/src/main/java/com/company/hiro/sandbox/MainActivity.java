@@ -1,14 +1,15 @@
 package com.company.hiro.sandbox;
 
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.company.hiro.sandbox.customclass.StaticClass;
+import com.company.hiro.sandbox.fragment.GridViewFragment;
 
 import livroandroid.lib.activity.BaseActivity;
 import livroandroid.lib.utils.NavDrawerUtil;
@@ -22,6 +23,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StaticClass.replaceFragment(this, new GridViewFragment());
         setupNavDrawer();
     }
     void setupNavDrawer() {
@@ -83,29 +85,20 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Trata o clique no botão que abre o menu.
-                if (drawerLayout != null) {
-                    if (openedDrawer)
-                        closeDrawer();
-                    else
-                        openDrawer();
-                    return true;
-                }
+            openCloseDrawer();
         }
         return super.onOptionsItemSelected(item);
     }
-    // Abre o menu lateral
-    protected void openDrawer() {
-        if (drawerLayout != null) {
-            openedDrawer = true;
-            drawerLayout.openDrawer(GravityCompat.START);
-        }
-    }
 
-    // Fecha o menu lateral
-    protected void closeDrawer() {
+    protected void openCloseDrawer() {
         if (drawerLayout != null) {
-            openedDrawer = false;
-            drawerLayout.closeDrawer(GravityCompat.START);
+            if(openedDrawer){
+                openedDrawer = false;
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }else{
+                openedDrawer = true;
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
         }
     }
 }
